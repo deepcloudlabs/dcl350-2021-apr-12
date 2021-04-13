@@ -1,11 +1,13 @@
 package com.example.hr.domain;
 
+import com.example.hr.ddd.Aggregate;
 import com.example.hr.ddd.Entity;
 
 // Entity -> i) Identity ii) Mutable Class
 // Domain Objects: Entity, Entity Root -> Aggregate, Value Object
 // Ubiquitous Language, Bounded Context
 @Entity(identity = "tcKimlikNo")
+@Aggregate
 public class Employee {
 	private TcKimlikNo tcKimlikNo;
 	private FullName fullName;
