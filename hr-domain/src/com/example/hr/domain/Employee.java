@@ -22,8 +22,83 @@ public class Employee {
 		this.birthYear = birthYear;
 	}
 
-	// Builder
-	
+	public Employee(Builder builder) {
+		this.tcKimlikNo = builder.tcKimlikNo;
+		this.fullName = builder.fullName;
+		this.iban = builder.iban;
+		this.salary = builder.salary;
+		this.birthYear = builder.birthYear;
+		this.department = builder.department;
+		this.jobStyle = builder.jobStyle;
+		this.photo = builder.photo;
+	}
+
+	// Builder: DSL -> Flow API -> Method Chain
+	public static class Builder {
+		private TcKimlikNo tcKimlikNo;
+		private FullName fullName;
+		private Iban iban;
+		private Money salary;
+		private BirthYear birthYear;
+		private Department department;
+		private JobStyle jobStyle;
+		private Photo photo;
+
+		public Builder(TcKimlikNo tcKimlikNo) {
+			this.tcKimlikNo = tcKimlikNo;
+		}
+
+		public Builder fullname(String firstName, String lastName) {
+			this.fullName = FullName.of(firstName, lastName);
+			return this;
+		}
+
+		public Builder iban(String value) {
+			this.iban = Iban.valueOf(value);
+			return this;
+		}
+
+		public Builder salary(double value, FiatCurrency currency) {
+			this.salary = Money.of(value, currency);
+			return this;
+		}
+
+		public Builder salary(double value) {
+			return salary(value, FiatCurrency.TL);
+		}
+
+		public Builder department(String department) {
+			this.department = Department.valueOf(department);
+			return this;
+		}
+
+		public Builder birthYear(int value) {
+			this.birthYear = BirthYear.of(value);
+			return this;
+		}
+
+		public Builder jobStyle(String style) {
+			this.jobStyle = JobStyle.valueOf(style);
+			return this;
+		}
+
+		public Builder photo(byte[] data) {
+			this.photo = Photo.valueOf(data);
+			return this;
+		}
+
+		public Builder photo(String data) {
+			this.photo = Photo.valueOf(data);
+			return this;
+		}
+
+		public Employee build() {
+			// validation
+			// business rule
+			return new Employee(this);
+		}
+	}
+
 	public FullName getFullName() {
 		return fullName;
 	}
