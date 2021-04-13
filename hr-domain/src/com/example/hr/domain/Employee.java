@@ -11,7 +11,7 @@ public class Employee {
 	private Iban iban;
 	private Money salary;
 	private BirthYear birthYear;
-	private Department department
+	private Department department;
 	private JobStyle jobStyle;
 	private Photo photo;
 }
