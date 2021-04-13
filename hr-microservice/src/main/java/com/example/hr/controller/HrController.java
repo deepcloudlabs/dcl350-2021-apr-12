@@ -17,15 +17,19 @@ import com.example.hr.dto.HireEmployeeRequest;
 import com.example.hr.dto.HireEmployeeResponse;
 import com.example.hr.service.HrService;
 
-@RestController
+import io.swagger.annotations.Api;
+
+@RestController // Meta annotation
 @RequestMapping("employees")
 @RequestScope
 @CrossOrigin
+@Api("HR Rest Api")
 public class HrController { // Adapter: Http Protocol -> Java Class
 	@Autowired
 	private HrService hrService;
-	
+
 	@PostMapping("{identity}")
+	// @RequestMapping(method = RequestMethod.POST,value = "{identity}")
 	public HireEmployeeResponse hireEmployee(@RequestBody HireEmployeeRequest request) {
 		return hrService.hireEmployee(request);
 	}
@@ -35,7 +39,7 @@ public class HrController { // Adapter: Http Protocol -> Java Class
 	public FireEmployeeResponse fireEmployee(@PathVariable String identity) {
 		return hrService.fireEmployee(identity);
 	}
-	
+
 	@GetMapping("{identity}")
 	public EmployeeResponse getEmployee(@PathVariable String identity) {
 		return hrService.getEmployee(identity);
@@ -45,5 +49,5 @@ public class HrController { // Adapter: Http Protocol -> Java Class
 	public String getEmployeePhoto(@PathVariable String identity) {
 		return hrService.getEmployeePhoto(identity);
 	}
-	
+
 }

@@ -89,11 +89,6 @@ public class Employee {
 			return this;
 		}
 
-		public Builder photo(String data) {
-			this.photo = Photo.valueOf(data);
-			return this;
-		}
-
 		public Employee build() {
 			// validation
 			// business rule
