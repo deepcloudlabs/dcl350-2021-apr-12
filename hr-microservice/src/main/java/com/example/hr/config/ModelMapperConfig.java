@@ -10,6 +10,7 @@ import com.example.hr.domain.TcKimlikNo;
 import com.example.hr.dto.EmployeeResponse;
 import com.example.hr.dto.HireEmployeeRequest;
 import com.example.hr.dto.HireEmployeeResponse;
+import com.example.hr.dıocument.EmployeeDocument;
 import com.example.hr.entity.EmployeeEntity;
 
 @Configuration
@@ -40,10 +41,30 @@ public class ModelMapperConfig {
 				 entity.setCurrency(employee.getSalary().getCurrency());
 				 entity.setBirthYear(employee.getBirthYear().getValue());
 				 entity.setDepartment(employee.getDepartment());
-				 entity.setJobStyle(employee.getJobStyle());						 
+				 entity.setJobStyle(employee.getJobStyle());	
+				 entity.setPhoto(employee.getPhoto().getData());
 				 return entity;
 			};
-					
+
+
+	private static final Converter<Employee,EmployeeDocument> employee2EmployeeDocument =
+			context -> {
+				 var employee = context.getSource();
+				 var document = new EmployeeDocument();
+				 document.setIdentity(employee.getTcKimlikNo().getValue());
+				 document.setIban(employee.getIban().getValue());
+				 document.setFirstName(employee.getFullName().getFirstName());
+				 document.setLastName(employee.getFullName().getLastName());
+				 document.setSalary(employee.getSalary().getValue());
+				 document.setCurrency(employee.getSalary().getCurrency());
+				 document.setBirthYear(employee.getBirthYear().getValue());
+				 document.setDepartment(employee.getDepartment());
+				 document.setJobStyle(employee.getJobStyle());		
+				 document.setPhoto(new String(employee.getPhoto().getData()));
+				 return document;
+			};
+									
+			
 	private static final Converter<EmployeeEntity,Employee> employeeEntity2EmployeeConverter =
 			context -> {
 				 var entity = context.getSource();
@@ -57,7 +78,22 @@ public class ModelMapperConfig {
 						            .photo(entity.getPhoto())
 						            .build();
 			};
-					
+
+	private static final Converter<EmployeeDocument,Employee> employeeDocument2EmployeeConverter =
+			context -> {
+				 var document = context.getSource();
+				 return new Employee.Builder(TcKimlikNo.valueOf(document.getIdentity()))
+						            .fullname(document.getFirstName(), document.getLastName())
+						            .salary(document.getSalary(), document.getCurrency())
+						            .iban(document.getIban())
+						            .birthYear(document.getBirthYear())
+						            .department(document.getDepartment().name())
+						            .jobStyle(document.getJobStyle().name())
+						            .photo(document.getPhoto().getBytes())
+						            .build();
+			};
+									
+			
 	private static final Converter<Employee, EmployeeResponse> employee2EmployeeResponseConverter =
 			context -> {
 				var employee = context.getSource();
@@ -98,6 +134,8 @@ public class ModelMapperConfig {
 		modelMapper.addConverter(employee2HireEmployeeResponseConverter, Employee.class, HireEmployeeResponse.class);
 		modelMapper.addConverter(employeeEntity2EmployeeConverter, EmployeeEntity.class, Employee.class);
 		modelMapper.addConverter(employee2EmployeeEntity, Employee.class, EmployeeEntity.class);
+		modelMapper.addConverter(employeeDocument2EmployeeConverter, EmployeeDocument.class, Employee.class);
+		modelMapper.addConverter(employee2EmployeeDocument, Employee.class, EmployeeDocument.class);
 		return modelMapper;
 	}
 }

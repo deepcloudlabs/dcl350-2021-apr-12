@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import com.example.hr.repository.EmployeeEntityRepository;
 import com.example.hr.repository.EmployeeRepository;
 
 @Repository
+@ConditionalOnProperty(name="database.type", havingValue = "mysql")
 public class EmployeeRepositoryJpaAdapter implements EmployeeRepository {
 	@Autowired
 	private EmployeeEntityRepository repo;
