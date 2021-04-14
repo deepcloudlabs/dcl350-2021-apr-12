@@ -1,4 +1,8 @@
-package com.example.hr.dıocument;
+package com.example.hr.document;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,21 +11,30 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import com.example.hr.domain.Department;
 import com.example.hr.domain.FiatCurrency;
 import com.example.hr.domain.JobStyle;
+import com.example.validation.Iban;
+import com.example.validation.TcKimlikNo;
 
 @Document(collection = "employees")
 public class EmployeeDocument {
 	@Id
+	@TcKimlikNo
 	private String identity;
 	@Field("fname")
+	@NotEmpty
 	private String firstName;
 	@Field("lname")
+	@NotEmpty
 	private String lastName;
+	@Iban
 	private String iban;
 	private FiatCurrency currency;
+	@Min(3000)
 	private double salary;
+	@Max(2007)
 	private int birthYear;
 	private Department department;
 	private JobStyle jobStyle;
+	@NotEmpty
 	private String photo;
 
 	public EmployeeDocument() {

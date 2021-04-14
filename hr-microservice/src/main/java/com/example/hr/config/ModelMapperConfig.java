@@ -5,12 +5,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.hr.document.EmployeeDocument;
 import com.example.hr.domain.Employee;
 import com.example.hr.domain.TcKimlikNo;
 import com.example.hr.dto.EmployeeResponse;
 import com.example.hr.dto.HireEmployeeRequest;
 import com.example.hr.dto.HireEmployeeResponse;
-import com.example.hr.dıocument.EmployeeDocument;
 import com.example.hr.entity.EmployeeEntity;
 
 @Configuration

@@ -7,25 +7,37 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.example.hr.domain.Department;
 import com.example.hr.domain.FiatCurrency;
 import com.example.hr.domain.JobStyle;
+import com.example.validation.Iban;
+import com.example.validation.TcKimlikNo;
 
 @Entity
 @Table(name = "employees")
 public class EmployeeEntity {
 	@Id
+	@TcKimlikNo
 	private String identity;
 	@Column(name = "first_name")
+	@NotEmpty
 	private String firstName;
 	@Column(name = "last_name")
+	@NotEmpty
 	private String lastName;
+	@Iban
 	private String iban;
 	@Enumerated(EnumType.STRING)
 	private FiatCurrency currency;
+	@Min(3000)
 	private double salary;
 	@Column(name = "birth_year")
+	@Max(2007)
 	private int birthYear;
 	@Column(name = "dept")
 	@Enumerated(EnumType.STRING)
@@ -35,6 +47,7 @@ public class EmployeeEntity {
 	private JobStyle jobStyle;
 	@Lob
 	@Column(columnDefinition = "longblob")
+	@NotNull
 	private byte[] photo;
 
 	public EmployeeEntity() {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import com.example.hr.dıocument.EmployeeDocument;
+import com.example.hr.document.EmployeeDocument;
 import com.example.hr.entity.EmployeeEntity;
 
 public interface EmployeeDocumentRepository extends MongoRepository<EmployeeDocument, String> {

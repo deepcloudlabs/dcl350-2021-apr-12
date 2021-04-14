@@ -1,19 +1,36 @@
 package com.example.hr.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.example.hr.domain.Department;
 import com.example.hr.domain.FiatCurrency;
 import com.example.hr.domain.JobStyle;
+import com.example.validation.Iban;
+import com.example.validation.TcKimlikNo;
 
 public class HireEmployeeRequest {
+	@TcKimlikNo
 	private String identity;
+	@Size(min = 2)
+	@NotBlank
 	private String firstName;
+	@Size(min = 2)
+	@NotBlank
 	private String lastName;
+	@Iban
 	private String iban;
 	private FiatCurrency currency;
+	@Min(3000)
 	private double salary;
+	@Max(2007)
 	private int birthYear;
 	private Department department;
 	private JobStyle jobStyle;
+	@NotNull
 	private String photo;
 
 	public String getIdentity() {

@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
+import com.example.hr.document.EmployeeDocument;
 import com.example.hr.domain.Employee;
 import com.example.hr.domain.TcKimlikNo;
-import com.example.hr.dıocument.EmployeeDocument;
 import com.example.hr.repository.EmployeeDocumentRepository;
 import com.example.hr.repository.EmployeeRepository;
 
