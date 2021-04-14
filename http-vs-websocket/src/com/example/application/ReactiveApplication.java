@@ -19,11 +19,12 @@ public class ReactiveApplication {
 				new Trade("MSFT", 120.0, 80),
 				new Trade("IBM", 110.0, 30)
 		);
-		SubmissionPublisher<Trade> publisher = new SubmissionPublisher<>();
-		publisher.subscribe(new AlgoTrader());
-		publisher.subscribe(new SignalProducer());
-		trades.forEach(publisher::submit);
-		try { TimeUnit.SECONDS.sleep(30);}catch(Exception e) {}
+		try (SubmissionPublisher<Trade> publisher = new SubmissionPublisher<>();){
+			publisher.subscribe(new AlgoTrader());
+			publisher.subscribe(new SignalProducer());
+			trades.forEach(publisher::submit);
+			try { TimeUnit.SECONDS.sleep(30);}catch(Exception e) {}			
+		}
 	}
 
 }
