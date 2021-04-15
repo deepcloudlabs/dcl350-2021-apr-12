@@ -34,6 +34,7 @@ public class HrController { // Adapter: Http Protocol -> Java Class
 	@PostMapping
 	// @RequestMapping(method = RequestMethod.POST,value = "{identity}")
 	public HireEmployeeResponse hireEmployee(@RequestBody @Validated HireEmployeeRequest request) {
+		System.err.println(hrService.getClass());
 		return hrService.hireEmployee(request);
 	}
 
