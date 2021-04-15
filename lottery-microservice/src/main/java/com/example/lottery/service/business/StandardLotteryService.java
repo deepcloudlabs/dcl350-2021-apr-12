@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import com.example.lottery.dto.LotteryResponse;
 import com.example.lottery.service.LotteryService;
 
 @Service
+@RefreshScope
 public class StandardLotteryService implements LotteryService {
 	@Value("${lottery.max}")
 	private int lotteryMax;
