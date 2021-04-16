@@ -2,10 +2,15 @@ package com.example.hr.adapter;
 
 import java.util.Optional;
 
+import javax.persistence.LockModeType;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hr.domain.Employee;
@@ -23,7 +28,8 @@ public class EmployeeRepositoryJpaAdapter implements EmployeeRepository {
 	private ModelMapper mapper;
 
 	@Override
-	@Transactional
+	@Lock(LockModeType.PESSIMISTIC_READ)
+	@Transactional(isolation=Isolation.DEFAULT,propagation = Propagation.MANDATORY)
 	public Employee create(Employee employee) {
 		var entity = mapper.map(employee, EmployeeEntity.class);
 		var managedEntity = repo.save(entity);

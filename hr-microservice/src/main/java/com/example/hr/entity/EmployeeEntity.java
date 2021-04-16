@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -49,7 +50,9 @@ public class EmployeeEntity {
 	@Column(columnDefinition = "longblob")
 	@NotNull
 	private byte[] photo;
-
+	@Version
+	private int version;
+	
 	public EmployeeEntity() {
 	}
 
