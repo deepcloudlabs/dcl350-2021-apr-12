@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.hr.dto.HireEmployeeResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+//-Dspring.profiles.active=test
 @Service
 @Profile("test")
 public class HireEmployeeResultKafkaListener {
