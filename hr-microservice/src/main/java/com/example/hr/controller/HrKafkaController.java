@@ -2,6 +2,7 @@ package com.example.hr.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class HrKafkaController {
 	@Autowired
 	private KafkaTemplate<String,String> kafkaTemplate;
 	
+	@EventListener
+	public void listenEvent(String event) {
+		
+	}
 	@KafkaListener(topics = "hr", groupId = "hr")
 	public void listen(String request) throws Exception {
 		var hireEmployeeRequest = objectMapper.readValue(request,HireEmployeeRequest.class);
